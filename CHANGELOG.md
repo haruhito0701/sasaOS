@@ -1,6 +1,31 @@
-# Changelog
+# CHANGELOG
 
-## Logo cleanup
-- Removed the white canvas around the supplied logo tiles by making the outside area transparent.
-- Replaced diamond placeholder marks with the supplied main logo.
-- Used only the Beta logo for the current version; the 1.0.0 example is not used.
+## 0.3.0
+
+### 修正（重大）
+- 提供された `sasaos-beta-advanced-settings-bios.zip` の `index.html` は、`#bios-screen` / `#bios-continue` / `#bios-reboot` / `#theme-toggle` が HTML に存在せず、`null.addEventListener` で起動直後にスクリプトが停止していた（スタートメニュー・アプリ起動・時計が動かない）。該当コードを除去・再実装して解消。
+- 起動タイマーが多重に残り得る構造（`setTimeout` 連鎖、`load` 後の二重起動）を、単一の `requestAnimationFrame` ループに置換。
+- 設定の保存キーが散在（`sasa-*`）していたため、設定は `sasa-beta-settings-v2`、BIOS は `sasa-beta-bios-v1` に整理。旧キー（テーマ・壁紙・アクセント）は初回のみ移行。壊れた JSON でも既定値で起動。
+- `confirm()` / `prompt()` をアプリ内ダイアログに置換。
+
+### 追加
+- 設定アプリ全面再構築（左ナビ・検索・サブページ・戻る・即時プレビュー・ページ別リセット・小画面対応）。
+- 個人用設定：背景/色/テーマ/ロック画面/スタート/タスクバー/フォント。
+- 起動演出（10秒、ロゴ、プログレス、経過/残り時間、スピナー）、Tab+Enter 5秒長押し検出、代替ボタン。
+- BIOS 風画面（Main / Boot / Security / Advanced / System Information / Save & Exit）。
+- sasaOS Update（確認→進捗→履歴→再起動デモ）、ロック画面、ユーザーチップ、おすすめ（最近使用）。
+
+### 維持
+sasaOS Beta の名称、既存 2 種のロゴ画像データ（新規生成なし）、デスクトップ、タスクバー、スタート、ファイル、ターミナル、メモ、Wi-Fi、ブラウザー、sasaOSについて、ウィンドウ操作、アイコンのドラッグ/右クリックメニュー。
+
+### 変更点（仕様上の注意）
+- テーマ（標準/明るい/暗い/カスタム）は、モード・アクセント・**背景**をまとめて適用する。
+- 起動時間の選択肢は 10/15/20/30 秒（5秒長押しを成立させるため 10 秒未満は不可）。
+- 表示言語は日付書式のみ変更（UI 文言は日本語のまま）。
+- 画像壁紙は最大 1920px・JPEG に縮小して保存（保存容量対策）。
+
+### 既知の問題 / 未確認
+- Chromebook 実機・タッチ画面は未確認（Linux 上の Chromium で自動テスト）。ChromeOS が Tab+Enter 同時押しを横取りするかは未確認。その場合は「セットアップに入る」ボタンを使用。
+- Web Bluetooth の実デバイス選択、USB、バッテリー API は環境依存で、この検証環境では動作未確認。
+- Wi-Fi アプリ（既存）の信号強度などは従来どおりデモ値。バッテリー 72% はデモ値。
+- ネットワーク環境（iframe 埋め込み拒否サイト等）によるブラウザーアプリの制限は従来どおり。

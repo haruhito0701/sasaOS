@@ -1,12 +1,21 @@
-# sasaOS Beta
+# sasaOS Beta 0.3.0
 
-A browser-based prototype for the sasaOS interface experiment. This is not yet a bootable ESP32 operating system.
+Windows 11 の設定アプリを参考にした設定、BIOS/UEFI 風セットアップ画面、10秒の起動デモを備えた、HTML 単体の OS 風デスクトップです。外部ライブラリ・ネット接続は不要です。
 
-## Run
-Open `index.html` in a modern browser.
+## 起動方法
+`sasaos_beta.html` を Chrome で開くだけです（サーバー不要）。設定は `localStorage` に保存されます。
 
-## Logos
-The current Beta logo is used for boot/about/settings, and the supplied main mark is used for the Start button and app identity. White canvas outside the black logo tile is transparent. The 1.0.0 sample logo is not used in the current Beta version.
+## 操作方法
+- **スタート / 検索 / クイック設定 / アプリ**：従来どおり。右クリックメニュー、アイコンのドラッグも従来どおり。
+- **設定**：スタートまたはデスクトップの「設定」。左のカテゴリ、上部の検索（Enterで先頭候補へ移動）、`←` で前のページへ。各サブページ下部の「このページの設定を初期値に戻す」でページ単位のリセット。変更は即時反映・自動保存。
+- **BIOS 風画面に入る**：起動中（約10秒）に **Tab と Enter を同時に 5.0 秒間押し続ける**。起動画面に押下秒数が表示されます。5秒未満で離すとリセットされます。起動後の通常画面では無効です。キー操作が使えない環境では、起動画面の「セットアップに入る」ボタンを使います。
+- **BIOS 操作**：`↑↓` 選択 / `←→` 値の変更 / `Enter` 決定 / `Esc` 戻る・Save & Exit へ。マウス・タッチ可。Save & Exit で保存・破棄・初期値読み込み・起動続行ができます。
+- **再起動**：スタート > 電源 > 再起動、または 設定 > sasaOS Update から（どちらも10秒の起動デモを通ります）。
 
-## Notes
-Wi-Fi, battery, and power features are simulated in this browser prototype unless explicitly connected to hardware firmware.
+## 主な機能
+- 設定：システム／Bluetoothとデバイス／ネットワーク／個人用設定（背景・色・テーマ・ロック画面・スタート・タスクバー・フォント）／アプリ／アカウント／時刻と言語／ゲーム／アクセシビリティ／プライバシーとセキュリティ／sasaOS Update（計12カテゴリ・42ページ）。
+- 実際に動作するもの：背景（標準・グラデーション・風景風・ダーク・単色・画像ファイル＋表示方法）、ライト/ダーク/システム、アクセント/カスタム色、透明効果、テーマ（保存可）、ロック画面、スタート表示、タスクバー（中央/左・上/下・自動非表示・透明・各項目の表示）、文字サイズ、コントラスト、アニメーション軽減、12/24時間・日付形式・タイムゾーン、アプリの模擬アンインストール/復元、スタートアップアプリ（起動後に実際に開く）、テスト音（Web Audio）、明るさ/夜間モード（画面に重ねる模擬）、ストレージ使用量（実測）、権限状態の読み取り（実測）、FPS（実測）。
+- 「デモ」バッジ付き項目は **保存のみ** で、OS・ハードウェアには作用しません（物理明るさ、電源、Wi-Fi/Bluetooth接続、VPN、プリンター等）。
+
+## 注意
+ブラウザー上のデモであり、本物の Windows / BIOS / UEFI ではありません。Chrome の権限、Wi-Fi、Bluetooth、電源、Google アカウントは変更しません。BIOS の PIN 保護は模擬機能で、セキュリティとして機能しません。
